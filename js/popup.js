@@ -4,6 +4,7 @@ chrome.runtime.connect({ name: "popup" });
 
 const appVersion = "v1.4.0"
 
+let rewardPage = 'https://rewards.bing.com/pointsbreakdown'
 
 // Phones for mobile searches
 var phonesArray = [{ 
@@ -37,6 +38,7 @@ const domElements = {
     totSearchesMobileNumber: '#totSearchesMobileNumber',
     desktopButton: '#desktopButton',
     mobileButton: '#mobileButton',
+    showRewards: '#showRewards',
     desktopmobileButton: '#desktopmobileButton',
     totSearchesForm: '#totSearchesForm',
     totSearchesMobileForm: '#totSearchesMobileForm',
@@ -93,10 +95,16 @@ $(domElements.mobileButton).on('click', async () => {
 
 // Start Both search
 $(domElements.desktopmobileButton).on("click", async () => {
-    doSearchesDesktop()
+    await doSearchesDesktop()
     let tabId = await getTabId()
     handleMobileMode(tabId)
 })
+
+//Show rewards 
+$(domElements.showRewards).on("click", () => {
+    openRewardPage()
+})
+
 
 /**
  * Perform random searches on Bing
@@ -119,7 +127,7 @@ async function doSearchesDesktop() {
         await timer(milliseconds)
     }
 
-    
+    openRewardPage()
     setProgress(0, 'desktop')
     activateForms()
 } 
@@ -149,6 +157,12 @@ async function doSearchesDesktop() {
     activateForms()
 } 
 
+function openRewardPage() {
+    chrome.tabs.update({
+        url: rewardPage
+    })
+}
+
 
 /**
  * Deactivate Make search button 
@@ -158,6 +172,7 @@ function deactivateForms() {
     $(domElements.desktopButton).prop("disabled", true)
     $(domElements.mobileButton).prop("disabled", true)
     $(domElements.desktopmobileButton).prop("disabled", true)
+    $(domElements.showRewards).prop("disabled",true)
     $(domElements.totSearchesForm).prop("disabled", true)
     $(domElements.totSearchesMobileForm).prop("disabled", true)
     $(domElements.waitingBetweenSearches).prop("disabled", true)
@@ -171,6 +186,7 @@ function activateForms() {
     $(domElements.desktopButton).prop("disabled", false)
     $(domElements.mobileButton).prop("disabled", false)
     $(domElements.desktopmobileButton).prop("disabled", false)
+    $(domElements.showRewards).prop("disabled",false)
     $(domElements.totSearchesForm).prop("disabled", false)
     $(domElements.totSearchesMobileForm).prop("disabled", false)
     $(domElements.waitingBetweenSearches).prop("disabled", false)
@@ -224,6 +240,8 @@ function handleMobileMode(tabId) {
             await doSearchesMobile()
 
             disableDebugger(tabId)
+
+            openRewardPage()
 
         })
 
