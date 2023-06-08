@@ -37,6 +37,7 @@ const domElements = {
     totSearchesMobileNumber: '#totSearchesMobileNumber',
     desktopButton: '#desktopButton',
     mobileButton: '#mobileButton',
+    desktopmobileButton: '#desktopmobileButton',
     totSearchesForm: '#totSearchesForm',
     totSearchesMobileForm: '#totSearchesMobileForm',
     waitingBetweenSearches: '#waitingBetweenSearches',
@@ -86,6 +87,13 @@ $(domElements.desktopButton).on("click", () => {
 
 // Start search mobile
 $(domElements.mobileButton).on('click', async () => {
+    let tabId = await getTabId()
+    handleMobileMode(tabId)
+})
+
+// Start Both search
+$(domElements.desktopmobileButton).on("click", async () => {
+    doSearchesDesktop()
     let tabId = await getTabId()
     handleMobileMode(tabId)
 })
@@ -149,6 +157,7 @@ async function doSearchesDesktop() {
 function deactivateForms() {
     $(domElements.desktopButton).prop("disabled", true)
     $(domElements.mobileButton).prop("disabled", true)
+    $(domElements.desktopmobileButton).prop("disabled", true)
     $(domElements.totSearchesForm).prop("disabled", true)
     $(domElements.totSearchesMobileForm).prop("disabled", true)
     $(domElements.waitingBetweenSearches).prop("disabled", true)
@@ -161,6 +170,7 @@ function deactivateForms() {
 function activateForms() {
     $(domElements.desktopButton).prop("disabled", false)
     $(domElements.mobileButton).prop("disabled", false)
+    $(domElements.desktopmobileButton).prop("disabled", false)
     $(domElements.totSearchesForm).prop("disabled", false)
     $(domElements.totSearchesMobileForm).prop("disabled", false)
     $(domElements.waitingBetweenSearches).prop("disabled", false)
