@@ -4,7 +4,6 @@ chrome.runtime.connect({ name: "popup" });
 
 const appVersion = "v1.4.0"
 
-let andreaCorrigaWebsite = 'https://andreacorriga.com'
 
 // Phones for mobile searches
 var phonesArray = [{ 
@@ -112,7 +111,6 @@ async function doSearchesDesktop() {
         await timer(milliseconds)
     }
 
-    openAndreaCorriga()
     
     setProgress(0, 'desktop')
     activateForms()
@@ -143,11 +141,6 @@ async function doSearchesDesktop() {
     activateForms()
 } 
 
-function openAndreaCorriga() {
-    chrome.tabs.update({
-        url: andreaCorrigaWebsite
-    })
-}
 
 /**
  * Deactivate Make search button 
@@ -222,7 +215,6 @@ function handleMobileMode(tabId) {
 
             disableDebugger(tabId)
 
-            openAndreaCorriga()
         })
 
     })
