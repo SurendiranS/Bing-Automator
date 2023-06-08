@@ -7,4 +7,5 @@ This extension by default automatically performs 60 search on Bing with a 500ms 
 
 You can deploy the `.zip` package directly in your browser using Developer Mode. 
 
-![image](https://github.com/SurendiranS/Bing-Search-Automator/assets/43315429/88d27c71-2993-4ff2-b299-b86983016db7)
+![image](https://github.com/SurendiranS/Bing-Search-Automator/assets/43315429/00276db5-3668-4b01-a08e-6fc1d2562575)
+
